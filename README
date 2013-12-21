@@ -1,0 +1,20 @@
+
+
+Rabbit MQ URL
+
+The managementport seems to be incremented by 10000 from the port that is listed in RABBITMQ_URL.
+
+For example, 
+export RABBITMQ_URL="amqp://usAceWUDnrAPb:pnSSicen1XXsz@10.46.93.220:10003/v837b2851dae24ca8961dfc144f54c0b0"
+
+Management console: http://10.46.93.220:20003/
+username: usAceWUDnrAPb
+password: pnSSicen1XXsz
+
+INSTALL
+bundle install
+runq push
+
+
+TESTING
+curl -X PUT -H "Content-Type: application/json" -d @testfile.json http://rest-pub-rabbitmq-testapp.runqnp.qualcomm.com/events

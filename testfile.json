@@ -1,0 +1,1 @@
+{"Type":"dea_stop","Desc":"Stopping application 'java-helloworld-webapp' on DEA ae1789","Severity":"INFO","Info":{"app_id":22,"app_name":"java-helloworld-webapp","dea_id":"ae1789","instance":0},"Process":"dea","UnixTime":1355855322,"NodeID":"10.46.93.220"}

@@ -1,0 +1,8 @@
+name: rest-pub-rabbitmq-testapp
+instances: 1
+framework:
+  type: sinatra
+  runtime: ruby19
+mem: 128
+services:
+  ${name}-rabbitmq: rabbitmq

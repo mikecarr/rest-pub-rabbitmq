@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Stackato Testapp : rest-pub-rabbitmq</title>
+</head>
+
+<div>
+    <h3>Overview</h3>
+    This test app exposes a rest api (PUT) and expects JSON, the resulting message will be put into a queue. This test
+    app will guide you through posting a message/event and verifying the message landed in a queue.
+
+</div>
+
+<div>
+    <h3>Environment</h3>
+    RABBITMQ_URL: <%= ENV['RABBITMQ_URL'] %>
+
+    <p>The management port is set by incrementing the port defined in the RABBITMQ_URL by 10000 .
+
+</div>
+
+
+<div>
+
+    <h3>Testing</h3>
+    <ul>
+
+    <li>Navigate to Rabbit MQ Management Console and enter credentials show below.</li>
+
+    <%
+
+       hostname = JSON.parse( ENV['STACKATO_SERVICES'] )['rest-pub-rabbitmq-testapp-rabbitmq']['hostname'] rescue 'error'
+       username = JSON.parse( ENV['STACKATO_SERVICES'] )['rest-pub-rabbitmq-testapp-rabbitmq']['user'] rescue 'error'
+       password = JSON.parse( ENV['STACKATO_SERVICES'] )['rest-pub-rabbitmq-testapp-rabbitmq']['password'] rescue 'error'
+       port = JSON.parse( ENV['STACKATO_SERVICES'] )['rest-pub-rabbitmq-testapp-rabbitmq']['port'] rescue 'error'
+       port = port + 10000
+
+       management_url = "http://#{hostname}:#{port}"
+    %>
+
+    <p><b>Management console</b><br>
+    url: <%= management_url %><br>
+    username: <%= username  %><br>
+    password: <%= password  %><br>
+
+    <p></p>
+    <li>Select the Queues tab and take note of the Messages in the queue, if you have just created the queue the number should be 0.</li>
+
+
+    <li>Post a message</li>
+        Event listener is listening for PUT requests on  /events url.
+        Grab test file from <a href="https://github.qualcomm.com/mcarr/stackato-test-apps/blob/master/rest-pub-rabbitmq-testapp/testfile.json">here (testfile.json)</a>
+
+
+    <pre>&nbsp;&nbsp;&nbsp;curl -X PUT -H "Content-Type: application/json" -d @testfile.json http://rest-pub-rabbitmq-testapp.runqnp.qualcomm.com/events</pre>
+
+    <li>Verify the message arrived in the console<li>
+    The console will refresh by itself. To verify the message in the queue select the name of queue
+    kato-events, then 'Get Messages', leave defaults and select 'Get Message(s)', verify the payload is what was sent.
+    </ul>
+
+</div>
+
+</html>
